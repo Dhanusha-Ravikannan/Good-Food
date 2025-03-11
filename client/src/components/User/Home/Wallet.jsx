@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import './Wallet.css';
 import refund from '../../../assets/refundpolicy.jpg'
-
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -25,14 +24,7 @@ const Wallet = () => {
       <h2 style={{ marginTop: '2rem' }}>Wallet & Refunds</h2> 
       <div className='refund-price'>  
        <img src={refund} alt='refundpolicy' /> 
-      </div> 
-
-      {/* <div className="wallet-dashboard">
-        <div className="wallet-section">
-          <h4>Terms and Conditions for Refund Policy</h4>
-        </div> 
-      </div> */}
-      
+      </div>       
        <div className='accordion-header'> 
       <Accordion>
         <AccordionSummary
@@ -116,23 +108,6 @@ Meal subscription plans have to be used during the period of validity. In case o
             onChange={(e) => setReason(e.target.value)}
           />
         </div>
-
-        {/* <div className="subscribed-section">
-          <h4>Subscription Details</h4>
-          <label style={{marginTop:'2rem'}}>Subscribed Price:</label>
-          <input 
-            type="number" 
-            value={subscribedPrice} 
-            onChange={(e) => setSubscribedPrice(e.target.value)}
-          />
-
-          <label>Subscribed Plan:</label>
-          <input 
-            type="text" 
-            value={subscribedPlan} 
-            onChange={(e) => setSubscribedPlan(e.target.value)}
-          />
-        </div> */}
       </div>
     </div>
 

@@ -263,11 +263,7 @@ import AdminOrderList from './Pages/Admin/AdminOrderList';
 import PaymentCart from './components/User/Home/PaymentCart';
 import EliteCombo from './components/User/Subscription/EliteCombo';
 import FeedItems from './Pages/Admin/FeedItems';
-import SubscriptionPlan from './components/User/OverallHome/SubscriptionPlan';
-import ContactUs from './components/User/OverallHome/ContactUs';
-import LicenseContent from './components/User/OverallHome/LicenseContent';
 import IdeasToImprove from './components/User/OverallHome/IdeasToImprove';
-import Vision from './components/User/OverallHome/Vision';
 import SignIn from './components/User/OverallHome/SignIn';
 import MoneyTransfer from './components/User/Subscription/MoneyTransfer';
 import BudgetCombo from './components/User/Subscription/BudgetCombo';
@@ -300,10 +296,6 @@ const App = () => {
     <Route path='IndividualPackDinnerElite' element={<IndividualPackDinnerElite  />} />
     <Route path='EliteCombo'  element={<EliteCombo />} /> 
     <Route path='BudgetCombo' element={< BudgetCombo/>}/>
-    <Route path='SubscriptionPlan' element={< SubscriptionPlan />}/> 
-    <Route path='ContactUs'  element={< ContactUs />} />
-    <Route path='LicenseContent' element={< LicenseContent />} />
-    <Route path='Vision' element={<Vision/>} />
     <Route path='LoginPopup' element={< LoginPopup />}/>
     <Route path='SignIn'  element={<SignIn />} />
 
@@ -317,7 +309,7 @@ const App = () => {
     <Route path='Skippedcart' element={<Skippedcart />} /> 
     <Route path='subscription' element={<Subscription />} />
     <Route path='Payment/:id' element={<Payment />} />
-    <Route path='Home:id' element={<Home />} />
+    <Route path='Home/:id' element={<Home />} />
     <Route path='Navbar' element={<Navbar />} />
     <Route path='Order' element={<Order />} />
     <Route path='Account' element={<Account />} />

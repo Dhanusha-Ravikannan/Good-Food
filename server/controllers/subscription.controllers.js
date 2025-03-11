@@ -248,13 +248,14 @@ const getSubscriptionNames = async (req, res) => {
           PricingDetails: { select: { price: true } },
         },
       });
+      console.log(getSUB)
  
       const groupedSubscriptions = getSUB.reduce((acc, sub) => {
         const key = `${sub.parentPlan1.plan_name} ${sub.TierSub.type}`;
         const mealType = sub.MealSub.meal_type;
  
         if (!acc[key]) {
-          acc[key] = {};
+          acc[key] = {}; 
         }
  
         if (!acc[key][mealType]) {

@@ -131,6 +131,7 @@
   }
  
  
+ 
 
 @media (max-width: 768px) {
   .modaal {
@@ -161,3 +162,28 @@
 
   }
 }
+
+
+.breakfast-days{
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  font-size: 1.6rem;
+ 
+}
+
+
+.breakfast-days div{  
+  background-color: rgb(238, 74, 24);
+  color: aliceblue;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+}
+
+
+
+

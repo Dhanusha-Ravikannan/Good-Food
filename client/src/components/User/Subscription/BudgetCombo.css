@@ -119,18 +119,23 @@ img{
   justify-content: space-between;
 }
 
-.sub-add button{
-    padding: 0.7rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-    position: absolute;
-    margin-left: 82rem;
-    border-radius: 8px;
-    color: rgb(246, 248, 245);
-    background-color:  rgb(107, 56, 89);   
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+
+.sub-add {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem; 
 }
+
+.sub-add button {
+  padding: 0.7rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 8px;
+  color: rgb(246, 248, 245);
+  background-color: rgb(107, 56, 89);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 
 
 .sub-add :hover{
@@ -141,10 +146,8 @@ img{
 .days{
   display: flex;
   justify-content: space-around;
-  margin-top: 2rem;
   font-weight: bold;
   font-size: 1.6rem;
-  margin-top: 7rem;
  
 }
 
@@ -157,7 +160,6 @@ img{
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin-left: 2rem;
   margin-right: 2rem;
-
 
 }
 

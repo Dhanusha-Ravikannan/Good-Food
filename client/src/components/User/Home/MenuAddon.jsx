@@ -94,15 +94,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import './MenuAddon.css';
 import Typography from '@mui/material/Typography';
@@ -111,9 +102,9 @@ import Footer from './Footer';
 import FoodCard from './FoodCard';
 import idlyImage from '../../../assets/idly.jpg';
 import dosaImage from '../../../assets/dosa.webp';
+
 const MenuAddon = () => {
-  const [addedItems, setAddedItems] = useState({});
- 
+  const [addedItems, setAddedItems] = useState({}); 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const initialState = {};
@@ -129,16 +120,13 @@ const MenuAddon = () => {
         operation === 'increment'
           ? (prevState[itemName] || 0) + 1
           : Math.max((prevState[itemName] || 0) - 1, 0);
- 
       let storedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       let updatedItems = storedItems.map(cartItem =>
         cartItem.name === itemName
           ? { ...cartItem, quantity: newQuantity, totalPrice: newQuantity * cartItem.price }
           : cartItem
-      ).filter(cartItem => cartItem.quantity > 0);
- 
-      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
- 
+      ).filter(cartItem => cartItem.quantity > 0); 
+      localStorage.setItem('cartItems', JSON.stringify(updatedItems)); 
       return { ...prevState, [itemName]: newQuantity };
     });
   };
@@ -146,14 +134,13 @@ const MenuAddon = () => {
   const handleAddToCart = (item) => {
     const storedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const existingItem = storedItems.find(cartItem => cartItem.name === item.name);
- 
+
     if (existingItem) {
       existingItem.quantity += 1;
       existingItem.totalPrice = existingItem.quantity * existingItem.price;
     } else {
       storedItems.push({ ...item, quantity: 1, totalPrice: item.price });
-    }
- 
+    } 
     localStorage.setItem('cartItems', JSON.stringify(storedItems));
  
     setAddedItems(prevState => ({
@@ -172,8 +159,7 @@ const MenuAddon = () => {
       <MainNavbar />
       <Typography variant="h5" sx={{ textAlign: 'center', marginBottom: '20px', marginTop: '2rem', fontWeight: 'bold' }}>
         List of Items for Add-Ons
-      </Typography>
- 
+      </Typography> 
       <div className="foodcard-column">
         {items.map(item => (
           <React.Fragment key={item.name}>

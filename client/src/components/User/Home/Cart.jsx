@@ -1,162 +1,94 @@
-// import React, { useState } from 'react';
-// import './Cart.css';
-// import { Link } from 'react-router-dom';
 
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Cart.css';
+import Lottie from "react-lottie";
 
-
-// const Cart = () => {
-//   const [cartItems, setCartItems] = useState([]);
-
-
-  
-
-
-
-//   const handleRemoveFromCart = (itemName) => {
-//     const updatedItems = cartItems.filter(item => item.name !== itemName);
-//     setCartItems(updatedItems);
-//     localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-//   };
-
-  
-
-
-//   return (
-//     <>
-//       <div className='order-header'>Added Items</div>
-//       <br />
-//       <div>
-//         <table className='styled-table'>
-//           <thead>
-//             <tr>
-//               <th>Item</th>
-//               <th>Price</th>
-//               <th>Quantity</th>
-//               <th>Total Price</th>
-//               <th>Action</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {cartItems.map((item, index) => (
-//               <tr key={index}>
-//                 <td>{item.name}</td>
-//                 <td>₹{item.price}</td>
-//                 <td>{item.quantity}</td>
-//                 <td>₹{item.totalPrice}</td>
-//                 <td>
-//                   <button onClick={() => handleRemoveFromCart(item.name)}>Delete</button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-
-    
-//           <Link to={'/user/PaymentCart'}> 
-//             <button>Checkout to Payment</button>
-//           </Link>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Cart;
-
-
-
-
-import React, { useState, useEffect } from "react";
-import "./Cart.css";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
-  // 🔹 Fetch Cart Items on Component Mount
   useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_SERVER_URL}/cart/get`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        console.log("CART DATA:", response.data);
-
-        // 🔹 Extract items from response
-        const items = response.data.cartItems.map((cartItem) => ({
-          id: cartItem.id,
-          name: cartItem.item_name,
-          price: cartItem.price,
-          quantity: 1, // Default quantity
-          totalPrice: cartItem.price * 1, // Calculate total price
-        }));
-
-        setCartItems(items);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
-
-    fetchCartItems();
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
   }, []);
 
-  // 🔹 Handle Removing Item from Cart
-  const handleRemoveFromCart = async (itemId) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_SERVER_URL}/cart/removeCart/${itemId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+  const handleRemoveItem = (item) => {
+    let updatedCart = [...cart];
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.item_name === item.item_name);
 
-      // 🔹 Update state after deletion
-      const updatedItems = cartItems.filter((item) => item.id !== itemId);
-      setCartItems(updatedItems);
-      localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-    } catch (error) {
-      console.error("Error removing cart item:", error);
+    if (existingItemIndex !== -1) {
+      if (updatedCart[existingItemIndex].quantity > 1) {
+        updatedCart[existingItemIndex].quantity -= 1;
+      } else {
+        updatedCart.splice(existingItemIndex, 1);
+      }
     }
+
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
+  const handleAddItem = (item) => {
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.item_name === item.item_name);
+    let updatedCart = [...cart];
+
+    if (existingItemIndex !== -1) {
+      updatedCart[existingItemIndex].quantity += 1;
+    } else {
+      updatedCart.push({ ...item, quantity: 1 });
+    }
+
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const handleCheckout = () => {
+    console.log("Proceeding to checkout with:", cart);
+    navigate('/user/PaymentCart');
+  };
+
+
+
+  
   return (
-    <>
-      <div className="order-header">Added Items</div>
-      <br />
-      <div>
-        <table className="styled-table">
+    <div className="cart-container">
+      <h2>Your Cart</h2>
+      {cart.length > 0 ? (
+        <table className="cart-table">
           <thead>
             <tr>
-              <th>Item</th>
+              <th>#S.No </th>
+              <th>Item Name</th>
               <th>Price</th>
               <th>Quantity</th>
-              <th>Total Price</th>
-              <th>Action</th>
+              <th>Total</th>
+              <th>Actions</th>             
             </tr>
           </thead>
           <tbody>
-            {cartItems.map((item, index) => (
+            {cart.map((item, index) => (
               <tr key={index}>
-                <td>{item.name}</td>
+                <td>{index + 1}</td>
+                <td>{item.item_name}</td>
                 <td>₹{item.price}</td>
                 <td>{item.quantity}</td>
-                <td>₹{item.totalPrice}</td>
+                <td>₹{(item.price * item.quantity).toFixed(2)}</td>
                 <td>
-                  <button onClick={() => handleRemoveFromCart(item.id)}>
-                    Delete
-                  </button>
+                  <button className="cart-action-btn" onClick={() => handleRemoveItem(item)}>-</button>
+                  <button className="cart-action-btn" onClick={() => handleAddItem(item)}>+</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
-        <Link to={"/user/PaymentCart"}>
-          <button>Checkout to Payment</button>
-        </Link>
-      </div>
-    </>
+      ) : (
+        <p>Your cart is empty.</p>
+      
+      )}
+      {cart.length > 0 && <button onClick={handleCheckout} className="checkout-button">Checkout</button>}
+    </div>
   );
 };
 

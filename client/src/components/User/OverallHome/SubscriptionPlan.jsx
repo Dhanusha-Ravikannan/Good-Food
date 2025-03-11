@@ -93,7 +93,7 @@ const SubscriptionPlan = () => {
 
   return (
     <>
-      <div className="main-container">
+      <section className="subscription-container">
         <header className="header">
           <h1 style={{ fontSize: "2.5rem" }} className="choose">
             Choose Your Plan for Subscription!
@@ -171,7 +171,7 @@ const SubscriptionPlan = () => {
             </div>
           </div>
         )}
-      </div>
+      </section>
     </>
   );
 };

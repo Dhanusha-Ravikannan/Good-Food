@@ -377,3 +377,16 @@ margin-left: 80rem;
   margin-top: 2rem;
 }
 
+.bottom{
+  margin-top: 2rem;
+}
+
+.food-image img {
+  height: 10rem;
+  width: 10rem;
+
+}
+
+.additional-items{
+  margin-top: 2rem;
+}
