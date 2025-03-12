@@ -177,4 +177,3 @@ const SubscriptionPlan = () => {
 };
  
 export default SubscriptionPlan;
- 
