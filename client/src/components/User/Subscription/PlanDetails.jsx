@@ -13,6 +13,7 @@ const PlanDetails = () => {
   const [selectedPlanId, setSelectedPlanId] = useState(null);
   const [isSignInVisible, setIsSignInVisible] = useState(false);
   const navigate = useNavigate();
+  const [isComboPlan,setIsComboPlan]=useState(false)
  
   useEffect(() => {
     const fetchPlans = async () => {
@@ -107,7 +108,7 @@ const PlanDetails = () => {
         <p>No meal details found for the selected option.</p>
       )}
  
- 
+
     </div>
  
     <div className="subscribe-button">
@@ -121,16 +122,18 @@ const PlanDetails = () => {
 {/* Display the formatted menu */}
 <div className="menu-section">
  
-  {/* Flex container for menu cards */}
+   {/* Flex container for menu cards */}
   <div className="menu-container">
     {Object.keys(formattedMenu).length > 0 ? (
       Object.entries(formattedMenu).map(([day, meals]) => (
         <div key={day} className="menu-day">
-          <h4>{day}</h4> {/* Displays Monday, Tuesday, etc. in its own card */}
- 
+          <h3>{day}</h3> {/* Displays Monday, Tuesday, etc. */}
+
           {Object.entries(meals).map(([mealType, items]) => (
             <div key={mealType} className="meal-section">
- 
+              {isComboPlan && <h3>{mealType}</h3>}
+              {/* Add Meal Type Heading (Breakfast, Lunch, Dinner) */}
+              
               <ul className="meal-list">
                 {items.map((item, index) => (
                   <li key={index} className="meal-item">
@@ -156,3 +159,19 @@ const PlanDetails = () => {
 };
  
 export default PlanDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
